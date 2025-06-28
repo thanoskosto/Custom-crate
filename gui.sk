@@ -1,0 +1,112 @@
+options:
+    guiname: "Case"
+    caseblock: gold block
+
+on skript load:
+    loop all players:
+        set {itemdrop::%loop-player%} to " "
+        set metadata tag {@guiname} of loop-player to chest inventory with 5 rows named {@guiname}
+        loop numbers between 0 and 44:
+            set slot loop-number of metadata tag {@guiname} of loop-player to white stained glass pane named " "
+        set slot 22 of metadata tag {@guiname} of loop-player to chest named "&4Open" with lore "&7Click to open the crate"
+        set metadata tag "animationsgui" of loop-player to chest inventory with 5 rows named {@guiname}
+on place of {@caseblock}:
+    if gamemode of event-player is creative:
+        set {location} to event-location
+        send "You placed the crate" to event-player
+
+
+on left click:
+    if event-block is gold block:
+        if gamemode of event-player is survival:
+            cancel event
+            open (metadata tag {@guiname} of event-player) to event-player
+
+on inventory click:
+    event-inventory = (metadata tag {@guiname} of player):
+        cancel event
+        index of event-slot = 22:
+            play sound "block.note_block.pling" at volume 1 at pitch 2 to player
+            chance of 10%:
+                set {itemdrop::%player%} to "N"
+            chance of 20%:
+                set {itemdrop::%player%} to "D"
+            chance of 30%:
+                set {itemdrop::%player%} to "E"
+            chance of 40%:
+                set {itemdrop::%player%} to "G"
+            chance of 40%:
+                set {itemdrop::%player%} to "I"
+            open (metadata tag "animationsgui" of player) to player
+            loop numbers between 0 and 8:
+                set slot loop-number of metadata tag "animationsgui" of player to white stained glass pane named " "
+                wait 1 ticks
+            set slot 17 of metadata tag "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            set slot 26 of metadata tag "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            set slot 35 of metadata tag "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            loop numbers between 44 and 36:
+                set slot loop-number of metadata "animationsgui" of player to white stained glass pane named " "
+                wait 1 ticks
+            wait 1 ticks
+            set slot 27 of metadata "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            set slot 18 of metadata "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            set slot 9 of metadata "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            loop numbers between 10 and 16:
+                set slot loop-number of metadata tag "animationsgui" of player to white stained glass pane named " "
+                wait 1 ticks
+            wait 1 ticks
+            set slot 25 of metadata "animationsgui" of player to white stained glass pane named " "
+            wait 1 ticks
+            loop numbers between 34 and 28:
+                set slot loop-number of metadata "animationsgui" of player to white stained glass pane named " "
+                wait 1 ticks
+            loop numbers between 19 and 25:
+                set slot loop-number of metadata "animationsgui" of player to white stained glass pane named " "
+                wait 1 ticks
+            loop numbers between 0 and 44:
+                set slot loop-number of metadata tag "animationsgui" of player to air
+            play sound "entity.generic.explode" at volume 1 at pitch 2 to player
+            if {itemdrop::%player%} = "N":
+                set slot 22 of metadata "animationsgui" of player to netherite ingot named "&92x Netherite Ingots"
+                drop 1 netherite ingot at {location}
+                wait 1 second
+                delete value
+            if {itemdrop::%player%} = "D":
+                set slot 22 of metadata "animationsgui" of player to diamond named "&92x Diamonds"
+                drop 1 diamond at {location}
+                wait 1 second
+                delete value
+            if {itemdrop::%player%} = "E":
+                set slot 22 of metadata "animationsgui" of player to emerald  named "&92x Emeralds"
+                drop 1 emerald at {location}
+                wait 1 second
+                delete value
+            if {itemdrop::%player%} = "G":
+                set slot 22 of metadata "animationsgui" of player to gold ingot named "&92x Gold Ingots"
+                drop 1 gold ingot at {location}
+                wait 1 second
+                delete value
+            if {itemdrop::%player%} = "I":
+                set slot 22 of metadata "animationsgui" of player to iron ingot named "&92x Iron Ingots"
+                drop 1 iron ingot at {location}
+                wait 1 second
+                delete value
+            wait 5 ticks
+            close player's inventory
+            loop numbers between 0 and 44:
+                set slot loop-number of metadata tag "animationsgui" of player to air
+
+    event-inventory = (metadata tag "animationsgui" of player):
+        cancel event
+    
+          
+            
+
+
+
